@@ -22,5 +22,6 @@ namespace ApiProject.WebApi.Context
         public DbSet<Service> Services { get; set; }
         public DbSet<Testimonial> Testimonials { get; set; }
         public DbSet<YummYEvent> YummYEvents { get; set; }
+        public DbSet<Notification> Notifications { get; set; }
     }
 }
