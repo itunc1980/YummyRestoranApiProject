@@ -17,7 +17,7 @@ namespace ApiProject.WebUI.Controllers
             var apiKey = "";
 
             // API Key'i URL'den çıkardık, daha temiz bir URL oldu.
-            var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent";
+            var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
 
             using var client = new HttpClient();
 
@@ -55,7 +55,7 @@ namespace ApiProject.WebUI.Controllers
                 ViewBag.Error = "Bir hata oluştu: " + response.StatusCode;
             }
 
-            return View("CreateRecipe");
+            return View("CreateRecipeWithAI");
         }
 
         // --- HOCANIN OpenAIResponse SINIFLARINA KARŞILIK GELEN GEMINI SINIFLARI ---
