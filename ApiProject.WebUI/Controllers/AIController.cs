@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Net.Http.Headers;
-// System.Text ve Newtonsoft.Json kütüphanelerini sildik, onlara artık gerek yok.
 
 namespace ApiProject.WebUI.Controllers
 {
@@ -16,15 +15,12 @@ namespace ApiProject.WebUI.Controllers
         {
             var apiKey = "";
 
-            // API Key'i URL'den çıkardık, daha temiz bir URL oldu.
             var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
 
             using var client = new HttpClient();
 
-            // Hocanın Bearer token eklediği gibi, biz de Gemini'nin beklediği yetkilendirme başlığını (Header) ekliyoruz.
             client.DefaultRequestHeaders.Add("x-goog-api-key", apiKey);
 
-            // Gemini'nin beklediği JSON yapısı (Hocanın requestData yapısına benzer şekilde)
             var requestData = new
             {
                 contents = new[]
@@ -39,12 +35,10 @@ namespace ApiProject.WebUI.Controllers
                 }
             };
 
-            // Hocanın kodundaki gibi PostAsJsonAsync kullanıyoruz (Manuel StringContent ve Serialize işlemine gerek kalmadı)
             var response = await client.PostAsJsonAsync(url, requestData);
 
             if (response.IsSuccessStatusCode)
             {
-                // dynamic yerine hocanın yaptığı gibi kendi yazdığımız sınıfları (class) kullanarak veriyi okuyoruz
                 var result = await response.Content.ReadFromJsonAsync<GeminiResponse>();
 
                 var content = result.candidates[0].content.parts[0].text;

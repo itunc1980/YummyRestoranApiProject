@@ -87,15 +87,12 @@ namespace ApiProject.WebUI.Controllers
 
             var apiKey = "";
 
-            // API Key'i URL'den çıkardık, daha temiz bir URL oldu.
             var url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
 
             using var client2 = new HttpClient();
 
-            // Hocanın Bearer token eklediği gibi, biz de Gemini'nin beklediği yetkilendirme başlığını (Header) ekliyoruz.
             client2.DefaultRequestHeaders.Add("x-goog-api-key", apiKey);
 
-            // Gemini'nin beklediği JSON yapısı (Hocanın requestData yapısına benzer şekilde)
             var requestData = new
             {
                 contents = new[]
@@ -110,12 +107,10 @@ namespace ApiProject.WebUI.Controllers
                 }
             };
 
-            // Hocanın kodundaki gibi PostAsJsonAsync kullanıyoruz (Manuel StringContent ve Serialize işlemine gerek kalmadı)
             var response = await client2.PostAsJsonAsync(url, requestData);
 
             if (response.IsSuccessStatusCode)
             {
-                // dynamic yerine hocanın yaptığı gibi kendi yazdığımız sınıfları (class) kullanarak veriyi okuyoruz
                 var result = await response.Content.ReadFromJsonAsync<GeminiResponse>();
 
                 var content = result.candidates[0].content.parts[0].text;
@@ -146,6 +141,25 @@ namespace ApiProject.WebUI.Controllers
         public class Part
         {
             public string text { get; set; }
+        }
+
+        public PartialViewResult SendMessage()
+        {
+            return PartialView();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> SendMessage(CreateMessageDto createMessageDto)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var jsonData = JsonConvert.SerializeObject(createMessageDto);  //metinden jsona =======> deserialize ise jsondan metine
+            StringContent stringContent = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var responseMessage = await client.PostAsync("https://localhost:7123/api/Messages", stringContent);
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("MessageList");
+            }
+            return View();
         }
     }
 }
