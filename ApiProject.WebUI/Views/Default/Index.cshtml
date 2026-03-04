@@ -17,18 +17,14 @@
 
     <main class="main">
 
-        <!-- Hero Section -->
         @await Component.InvokeAsync("_FeatureDefaultComponentPartial")
         
  
-        <!-- About Section -->
         @await Component.InvokeAsync("_AboutDefaultComponentPartial")
        
         
-        <!-- Why Us Section -->
         @await Component.InvokeAsync("_ServiceDefaultComponentPartial")
        
-        <!-- Stats Section -->
         <section id="stats" class="stats section dark-background">
 
             <img src="assets/img/stats-bg.jpg" alt="" data-aos="fade-in">
@@ -69,33 +65,23 @@
 
             </div>
 
-        </section><!-- /Stats Section -->
-        <!-- Menu Section -->
+        </section>
 
         @await Component.InvokeAsync("_DefaultMenuViewComponentPartial")
       
-       <!-- /Menu Section -->
-        <!-- Testimonials Section -->
         @await Component.InvokeAsync("_TestimonialDefaultComponentPartial")
-       <!-- /Testimonials Section -->
 
 
-        <!-- Events Section -->
         @await Component.InvokeAsync("_EventDefaultComponentPartial")
        
-        <!-- /Events Section -->
-        <!-- Chefs Section -->
         @await Component.InvokeAsync("_ChefDefaultComponentPartial")
         
-        <!-- /Chefs Section -->
-        <!-- Book A Table Section -->
         <section id="book-a-table" class="book-a-table section">
 
-            <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
                 <h2>Book A Table</h2>
                 <p><span>Book Your</span> <span class="description-title">Stay With Us<br></span></p>
-            </div><!-- End Section Title -->
+            </div>
 
             <div class="container">
 
@@ -143,8 +129,7 @@
 
             </div>
 
-        </section><!-- /Book A Table Section -->
-        <!-- Gallery Section -->
+        </section>
         <section id="gallery" class="gallery section light-background">
 
             <!-- Section Title -->
@@ -201,21 +186,20 @@
 
             </div>
 
-        </section><!-- /Gallery Section -->
-        <!-- Contact Section -->
+        </section>
+
         <section id="contact" class="contact section">
 
-            <!-- Section Title -->
             <div class="container section-title" data-aos="fade-up">
                 <h2>Contact</h2>
                 <p><span>Need Help?</span> <span class="description-title">Contact Us</span></p>
-            </div><!-- End Section Title -->
+            </div>
 
             <div class="container" data-aos="fade-up" data-aos-delay="100">
 
                 <div class="mb-5">
                     <iframe style="width: 100%; height: 400px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" allowfullscreen=""></iframe>
-                </div><!-- End Google Maps -->
+                </div>
 
                 <div class="row gy-4">
 
@@ -227,7 +211,7 @@
                                 <p>A108 Adam Street, New York, NY 535022</p>
                             </div>
                         </div>
-                    </div><!-- End Info Item -->
+                    </div>
 
                     <div class="col-md-6">
                         <div class="info-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="300">
@@ -237,7 +221,7 @@
                                 <p>+1 5589 55488 55</p>
                             </div>
                         </div>
-                    </div><!-- End Info Item -->
+                    </div>
 
                     <div class="col-md-6">
                         <div class="info-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="400">
@@ -247,7 +231,7 @@
                                 <p>info@example.com</p>
                             </div>
                         </div>
-                    </div><!-- End Info Item -->
+                    </div>
 
                     <div class="col-md-6">
                         <div class="info-item d-flex align-items-center" data-aos="fade-up" data-aos-delay="500">
@@ -257,16 +241,15 @@
                                 <p><strong>Mon-Sat:</strong> 11AM - 23PM; <strong>Sunday:</strong> Closed</p>
                             </div>
                         </div>
-                    </div><!-- End Info Item -->
+                    </div>
 
                 </div>
 
 				@await Html.PartialAsync("~/Views/Message/SendMessage.cshtml")
-              <!-- End Contact Form -->
 
             </div>
 
-        </section><!-- /Contact Section -->
+        </section>
 
     </main>
 
