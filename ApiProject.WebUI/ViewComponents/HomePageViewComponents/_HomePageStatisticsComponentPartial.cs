@@ -16,22 +16,22 @@ namespace ApiProject.WebUI.ViewComponents.HomePageViewComponents
             var client1 = _httpClientFactory.CreateClient();
             var responseMessage1 = await client1.GetAsync("https://localhost:7123/api/Statistics/ProductCount");
             var jsonData1 = await responseMessage1.Content.ReadAsStringAsync();
-            ViewBag.v1 = jsonData1;
+            ViewBag.v1 = int.Parse(jsonData1);
 
             var client2 = _httpClientFactory.CreateClient();
             var responseMessage2 = await client2.GetAsync("https://localhost:7123/api/Statistics/ReservationCount");
             var jsonData2 = await responseMessage2.Content.ReadAsStringAsync();
-            ViewBag.v2 = jsonData2;
+            ViewBag.v2 = int.Parse(jsonData2);
 
             var client3 = _httpClientFactory.CreateClient();
             var responseMessage3 = await client3.GetAsync("https://localhost:7123/api/Statistics/ChefCount");
             var jsonData3 = await responseMessage3.Content.ReadAsStringAsync();
-            ViewBag.v3 = jsonData3;
+            ViewBag.v3 = int.Parse(jsonData3);
 
             var client4 = _httpClientFactory.CreateClient();
             var responseMessage4 = await client4.GetAsync("https://localhost:7123/api/Statistics/TotalGuestCount");
             var jsonData4 = await responseMessage4.Content.ReadAsStringAsync();
-            ViewBag.v4 = jsonData4;
+            ViewBag.v4 = int.Parse(jsonData4);
 
             return View();
         }
