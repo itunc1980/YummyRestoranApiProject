@@ -7,7 +7,7 @@
         <div class="position-relative">
             <input type="text" class="form-control rounded-pill ps-4"
                    placeholder="Rezervasyon ara...">
-            <i class="fas fa-search position-absolute top-50 end-0 translate-middle-y me-3 text-muted"></i>
+            <i class="fas fa-search position-absolute top-50 end-0 translate-middle-y me-3 text-muted" style="right: 15px; top: 50%; transform: translateY(-50%);"></i>
         </div>
     </div>
 
@@ -33,17 +33,17 @@
                     {
                         string statusClass = item.ReservationStatus switch
                         {
-                                    "Onaylandı" => "badge-success",
-                                    "Beklemede" => "badge-warning",
-                                    "İptal Edildi" => "badge-danger",
-                            _ => "badge-secondary"
+                                    "Onaylandı" => "badge-success bg-success text-white",
+                                    "Beklemede" => "badge-warning bg-warning text-dark",
+                                    "İptal Edildi" => "badge-danger bg-danger text-white",
+                            _ => "badge-secondary bg-secondary text-white"
                         };
 
                         string statusIcon = item.ReservationStatus switch
                         {
-                                            "Onaylandı" => "fas fa-check-circle",
-                                            "Beklemede" => "fas fa-hourglass-half",
-                                            "İptal Edildi" => "fas fa-times-circle",
+                                    "Onaylandı" => "fas fa-check-circle",
+                                    "Beklemede" => "fas fa-hourglass-half",
+                                    "İptal Edildi" => "fas fa-times-circle",
                             _ => "fas fa-info-circle"
                         };
 
@@ -56,64 +56,53 @@
                         };
 
                         <tr class="table-row-modern">
-
-                            <!-- Checkbox -->
-                            <td style="width: 35px;">
-                                <input type="checkbox" />
+                            <td class="ps-3" style="width: 35px; padding-left:15px;">
+                                <input type="checkbox" class="form-check-input" />
                             </td>
 
-                            <!-- Group Title -->
-                            <td class="fw-semibold">
-                                <i class="fas fa-users text-primary me-2"></i>
+                            <td class="font-weight-bold">
+                                <i class="fas fa-users text-primary mr-2"></i>
                                 @item.GroupTitle
                             </td>
 
-                            <!-- Responsible Person -->
                             <td>
-                                <i class="fas fa-user text-secondary me-2"></i>
+                                <i class="fas fa-user text-secondary mr-2"></i>
                                 @item.ResponsibleCustomerName
                             </td>
 
-                            <!-- Status -->
                             <td>
                                 <span class="badge @statusClass px-3 py-2 rounded-pill">
-                                    <i class="@statusIcon me-1"></i>
+                                    <i class="@statusIcon mr-1"></i>
                                     @item.ReservationStatus
                                 </span>
                             </td>
 
-                            <!-- Person Count -->
                             <td>
-                                <i class="fas fa-user-friends text-info me-2"></i>
+                                <i class="fas fa-user-friends text-info mr-2"></i>
                                 @item.PersonCount
                             </td>
 
-                            <!-- Last Process Date -->
                             <td>
-                                <i class="fas fa-calendar-alt text-warning me-2"></i>
+                                <i class="fas fa-calendar-alt text-warning mr-2"></i>
                                 @item.LastProcessDate.ToString("dd-MMM-yyyy")
                             </td>
 
-                            <!-- Reservation Date -->
                             <td>
-                                <i class="fas fa-calendar-check text-success me-2"></i>
+                                <i class="fas fa-calendar-check text-success mr-2"></i>
                                 @item.ReservationDate.ToString("dd-MMM-yyyy")
                             </td>
 
-                            <!-- Priority -->
                             <td>
-                                <span class="badge bg-light text-dark px-3 py-2 rounded-pill">
-                                    <i class="@priorityIcon me-1"></i>
+                                <span class="badge badge-light text-dark px-3 py-2 rounded-pill shadow-sm border">
+                                    <i class="@priorityIcon mr-1"></i>
                                     @item.Priority
                                 </span>
                             </td>
 
-                            <!-- Details Button -->
-                            <td>
-                                <a href="#" class="btn btn-outline-primary btn-sm rounded-pill px-3">
-                                    <i class="fas fa-info-circle me-1"></i>
-                                    Detaylar
-                                </a>
+                            <td class="text-right pr-3" style="padding-right:15px;">
+                                <button type="button" class="btn btn-outline-primary btn-sm rounded-pill px-3" data-toggle="modal" data-target="#reservationDetailModal-@item.GroupReservationId">
+                                    <i class="fas fa-info-circle mr-1"></i> Detaylar
+                                </button>
                             </td>
                         </tr>
                     }
@@ -122,6 +111,124 @@
         </div>
     </div>
 </div>
+
+@foreach (var item in Model)
+{
+    <div class="modal fade" id="reservationDetailModal-@item.GroupReservationId" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="false" style="background-color: rgba(0,0,0,0.5);">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+
+                <div class="modal-header bg-primary text-white border-0 py-3 px-4 align-items-center">
+                    <div class="d-flex align-items-center">
+                        <div class="rounded-circle d-flex align-items-center justify-content-center mr-3" style="width: 48px; height: 48px; background-color: rgba(255,255,255,0.25);">
+                            <i class="fas fa-users" style="font-size: 1.5rem;"></i>
+                        </div>
+                        <div>
+                            <h5 class="modal-title font-weight-bold mb-0 text-white">@item.GroupTitle</h5>
+                            <p class="mb-0 text-white-50 small">Rezervasyon No: #@item.GroupReservationId</p>
+                        </div>
+                    </div>
+                    <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" style="opacity: 1; text-shadow: none;">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body p-4 bg-light">
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3 mb-md-0">
+                            <div class="card border-0 shadow-sm rounded-4 h-100 mb-0">
+                                <div class="card-body">
+                                    <h6 class="text-uppercase text-muted font-weight-bold mb-4 small border-bottom pb-2">
+                                        <i class="fas fa-info-circle mr-2"></i>Müşteri & Grup Bilgileri
+                                    </h6>
+
+                                    <div class="mb-3 d-flex align-items-center">
+                                        <div class="p-2 rounded-circle mr-3" style="background-color: rgba(108, 117, 125, 0.1);">
+                                            <i class="fas fa-user text-secondary"></i>
+                                        </div>
+                                        <div>
+                                            <span class="d-block text-muted small">Yetkili Kişi</span>
+                                            <span class="font-weight-bold" style="font-size:1.1rem; color:#333;">@item.ResponsibleCustomerName</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-3 d-flex align-items-center">
+                                        <div class="p-2 rounded-circle mr-3" style="background-color: rgba(23, 162, 184, 0.1);">
+                                            <i class="fas fa-user-friends text-info"></i>
+                                        </div>
+                                        <div>
+                                            <span class="d-block text-muted small">Kişi Sayısı</span>
+                                            <span class="font-weight-bold text-dark">@item.PersonCount Kişi</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-light p-2 rounded-circle mr-3 border">
+                                            <i class="fas fa-flag text-dark"></i>
+                                        </div>
+                                        <div>
+                                            <span class="d-block text-muted small">Öncelik Durumu</span>
+                                            <span class="font-weight-bold text-dark">@item.Priority Öncelik</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="card border-0 shadow-sm rounded-4 h-100 mb-0">
+                                <div class="card-body">
+                                    <h6 class="text-uppercase text-muted font-weight-bold mb-4 small border-bottom pb-2">
+                                        <i class="fas fa-clock mr-2"></i>Zaman Çizelgesi & Durum
+                                    </h6>
+
+                                    <div class="d-flex mb-4 align-items-center">
+                                        <div class="text-success rounded p-2 mr-3 text-center" style="min-width: 60px; background-color: rgba(40, 167, 69, 0.1);">
+                                            <span class="d-block font-weight-bold" style="font-size: 1.25rem;">@item.ReservationDate.ToString("dd")</span>
+                                            <span class="d-block small text-uppercase">@item.ReservationDate.ToString("MMM")</span>
+                                        </div>
+                                        <div class="d-flex flex-column justify-content-center">
+                                            <span class="text-muted small">Rezervasyon Tarihi</span>
+                                            <span class="font-weight-bold text-dark">@item.ReservationDate.ToString("dd MMMM yyyy HH:mm")</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="border-left border-warning ml-4 mb-4 pl-4 position-relative" style="border-left-width: 3px !important;">
+                                        <div class="position-absolute bg-warning rounded-circle" style="width: 12px; height: 12px; left: -8px; top: 5px;"></div>
+                                        <span class="d-block text-muted small">Son İşlem Tarihi</span>
+                                        <span class="font-weight-bold text-dark">@item.LastProcessDate.ToString("dd MMMM yyyy HH:mm")</span>
+                                    </div>
+
+                                    <div class="mt-2 pt-2 border-top">
+                                        <span class="d-block text-muted small mb-1">Anlık Durum</span>
+                                        @{
+                                            string modalBadge = item.ReservationStatus == "Onaylandı" ? "badge-success" :
+                                            item.ReservationStatus == "Beklemede" ? "badge-warning text-dark" :
+                                            item.ReservationStatus == "İptal Edildi" ? "badge-danger" : "badge-secondary";
+                                        }
+                                        <span class="badge @modalBadge rounded-pill px-3 py-2" style="font-size: 0.9rem;">
+                                            @item.ReservationStatus
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer bg-white border-top-0 pt-3 pb-3 px-4">
+                    <button type="button" class="btn btn-light rounded-pill px-4" data-dismiss="modal">Kapat</button>
+                    <a href="/Admin/GroupReservation/Update/@item.GroupReservationId" class="btn btn-primary rounded-pill px-4 shadow-sm">
+                        <i class="fas fa-edit mr-1"></i> Düzenle
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+}
 
 <style>
     .table-row-modern:hover {
