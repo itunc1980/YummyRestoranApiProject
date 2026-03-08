@@ -9,7 +9,7 @@ namespace ApiProjeKampi.WebUI.ViewComponents.DashboardViewComponents
     public class _DashboardAIDailyMenuSuggestionComponentPartial : ViewComponent
     {
         // Gemini API anahtarını buraya ekleyin
-        private const string GEMINI_API_KEY = "AIzaSyBnG1Cq3PZ16gU_hS8pwpr2jx-bkxAU2I4";
+        private const string GEMINI_API_KEY = "";
         private const string GEMINI_MODEL = "gemini-2.5-flash";
 
         private readonly IHttpClientFactory _httpClientFactory;
@@ -23,7 +23,7 @@ namespace ApiProjeKampi.WebUI.ViewComponents.DashboardViewComponents
             var client = _httpClientFactory.CreateClient();
 
             // Gemini API Endpoint'i (API Key sorgu parametresi olarak gönderilir)
-            string url = $"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent";
+            string url = $"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent?key={GEMINI_API_KEY}";
 
             string prompt = @"
                 4 farklı dünya mutfağından tamamen rastgele günlük menü oluştur.
